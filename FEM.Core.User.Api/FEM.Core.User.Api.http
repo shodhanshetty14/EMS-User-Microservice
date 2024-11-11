@@ -1,0 +1,6 @@
+@FEM.Core.User.Api_HostAddress = http://localhost:5190
+
+GET {{FEM.Core.User.Api_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
