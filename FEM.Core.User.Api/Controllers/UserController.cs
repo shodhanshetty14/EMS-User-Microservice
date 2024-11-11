@@ -1,9 +1,9 @@
-﻿using FEM.Core.User.Application.DTOs;
-using DomainUser = FEM.Core.User.Domain.Entities;
+﻿using System.Security.Claims;
+using FEM.Core.User.Application.DTOs;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using System.Security.Claims;
+using DomainUser = FEM.Core.User.Domain.Entities;
 
 namespace FEM.Core.User.Api.Controllers
 {
@@ -43,8 +43,20 @@ namespace FEM.Core.User.Api.Controllers
         [HttpGet("user-profile")]
         public async Task<IActionResult> UserProfile()
         {
-            //DomainUser.User user = await _userManager.FindByNameAsync(User.)
+            var userName = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            var user = await _userManager.FindByNameAsync(userName!);
+            
+            return Ok(user);
+        }
+
+        [Authorize]
+        [HttpPost("change-password")]
+        public async Task<IActionResult> ChangePassword([FromBody] ChangePasswordDto changePasswordData)
+        {
+
             return Ok();
         }
+
     }
 }

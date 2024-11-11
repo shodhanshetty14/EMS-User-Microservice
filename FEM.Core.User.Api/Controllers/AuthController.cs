@@ -47,8 +47,6 @@ namespace FEM.Core.User.Api.Controllers
 
             return Created("User Created Successfully", user);
 
-
-
         }
         
 
@@ -83,12 +81,9 @@ namespace FEM.Core.User.Api.Controllers
 
             string encryptedToken = new JwtSecurityTokenHandler().WriteToken(token);
 
-            var userRole = User.FindFirstValue(ClaimTypes.Role);
-
             return Ok(new
             {
                 token = $"Bearer {encryptedToken}",
-                role = userRole 
             });
         }
 
